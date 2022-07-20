@@ -1,3 +1,3 @@
 # x444-Nuker
-- Fastest discord nuker on discord written in py
+- Fastest nuker on discord written in py
 - Available soon
