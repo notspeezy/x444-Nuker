@@ -19,6 +19,7 @@ For python version:
 - [ ] Change Guild Name
 - [ ] Change Guild Icon
 - [ ] Change Vanity
+- [ ] Nickname All
 - [x] Ban all members
 - [x] Kick all members
 - [x] Prune members
