@@ -1,0 +1,22 @@
+{
+    "token": "bot_token",
+    "proxy": false,
+    "nuke": {
+        "channels_name": [
+            "x444 runs cord",
+            "hello there fucking faggo",
+            "github.com/notspeezy",
+            "beamed"
+        ],
+        "roles_name": [
+            "wizzed by x444",
+            "x444 owns u",
+            "x444 runs u"
+        ],
+        "messages_content": [
+            "@everyone https://github.com/notspeezy/x444-Nuker",
+            "@everyone x444 runs cord",
+            "@everyone x444 owns u"
+        ]
+    }
+}
