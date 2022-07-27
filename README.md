@@ -1,5 +1,5 @@
 # x444-Nuker
-x444, a faster nuker on discord written in py.
+x444, fastest nuker on discord written in py.
 ## Installation
 For compiled version:
 
