@@ -24,7 +24,7 @@ SOFTWARE.
 
 import threading, webbrowser, discord, random, httpx, json, time, os; from discord.ext import commands;from itertools import cycle; from colorama import Fore
 
-VERSION = "v1.0.0"
+VERSION = 'v1.0.0'
 
 __intents__ = discord.Intents.default()
 __intents__.members = True
