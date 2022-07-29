@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import threading, webbrowser, discord, random, httpx, json, time, os; from discord.ext import commands;from itertools import cycle; from colorama import Fore
+import threading, webbrowser, discord, random, httpx, json, time, os; from discord.ext import commands;from itertools import cycle
 
-VERSION = 'v1.0.0'
+VERSION = '1.0.0'
 
 __intents__ = discord.Intents.default()
 __intents__.members = True
@@ -51,10 +51,10 @@ options = """
          ╦ ({}4{}) {}< {}Create Channels  ║ ({}8{}) {}< {}Delete Emojis     ║ ({}12{}) {}< {}Exit            ╦
          ╚═════╦══════════════════╩═════════════════════════╩══════════════════╦═════╝
               ╔╩╝                                                             ╚╩╗
-""".format("\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET,
-           "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, 
-           "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET,
-           "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET)
+""".format("\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m",
+           "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", 
+           "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m",
+           "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m")
 
 
 class x444:
@@ -77,22 +77,22 @@ class x444:
         while True:
             response = self.session.put(f"https://discord.com/api/{next(self.version)}/guilds/{guildid}/bans/{member}", headers={"Authorization": f"Bot {token}"}, json=payload)
             if response.status_code in [200, 201, 204]:
-                print("{}({}+{}) Banned {}{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", member))
+                print("{}({}+{}) Banned {}{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", member))
                 self.banned.append(member)
                 break
             elif "retry_after" in response.text:
                 time.sleep(response.json()['retry_after'])
             elif "Missing Permissions" in response.text:
-                print("{}({}!{}) Missing Permissions {}{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, member))
+                print("{}({}!{}) Missing Permissions {}{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", member))
                 break
             elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-                print("{}({}!{}) You're being excluded from discord API {}{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) You're being excluded from discord API {}{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             elif "Max number of bans for non-guild members have been exceeded." in response.text:
-                print("{}({}!{}) Max number of bans for non-guild members have been exceeded".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) Max number of bans for non-guild members have been exceeded".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             else:
-                print("{}({}-{}) Failed to ban {}{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, member))
+                print("{}({}-{}) Failed to ban {}{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", member))
                 break
             
     
@@ -100,20 +100,20 @@ class x444:
         while True:
             response = self.session.delete(f"https://discord.com/api/{next(self.version)}/guilds/{guildid}/members/{member}", headers={"Authorization": f"Bot {token}"})
             if response.status_code in [200, 201, 204]:
-                print("{}({}+{}) Kicked {}{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", member))
+                print("{}({}+{}) Kicked {}{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", member))
                 self.kicked.append(member)
                 break
             elif "retry_after" in response.text:
-                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, response.json()['retry_after'], Fore.RESET))
+                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", response.json()['retry_after'], "\x1b[0m"))
                 time.sleep(float(response.json()['retry_after']))
             elif "Missing Permissions" in response.text:
-                print("{}({}!{}) Missing Permissions {}{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, member))
+                print("{}({}!{}) Missing Permissions {}{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", member))
                 break
             elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-                print("{}({}!{}) You're being excluded from discord API {}{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) You're being excluded from discord API {}{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             else:
-                print("{}({}-{}) Failed to kick {}{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, member))
+                print("{}({}-{}) Failed to kick {}{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", member))
                 break
             
     
@@ -123,13 +123,13 @@ class x444:
         }
         response = self.session.post(f"https://discord.com/api/v9/guilds/{guildid}/prune", headers={"Authorization": f"Bot {token}"}, json=payload)
         if response.status_code == 200:
-            print("{}({}+{}) Pruned {}{}{} members".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", response.json()['pruned'], Fore.RESET))
+            print("{}({}+{}) Pruned {}{}{} members".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", response.json()['pruned'], "\x1b[0m"))
         elif "Max number of prune requests has been reached. Try again later" in response.text:
-            print("{}({}!{}) Max number of prune reached. Try again in {}s".format(Fore.RESET, Fore.YELLOW, Fore.RESET, response.json()['retry_after']))
+            print("{}({}!{}) Max number of prune reached. Try again in {}s".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", response.json()['retry_after']))
         elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-            print("{}({}!{}) You're being temporarly excluded from discord API".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+            print("{}({}!{}) You're being temporarly excluded from discord API".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
         else:
-            print("{}({}-{}) Failed to prune {}{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, guildid))
+            print("{}({}-{}) Failed to prune {}{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", guildid))
             
             
     def execute_crechannels(self, guildid: str, channelsname: str, type: int, token: str):
@@ -142,20 +142,20 @@ class x444:
         while True:
             response = self.session.post(f"https://discord.com/api/{next(self.version)}/guilds/{guildid}/channels", headers={"Authorization": f"Bot {token}"}, json=payload)
             if response.status_code == 201:
-                print("{}({}+{}) Created {}#{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", channelsname))
+                print("{}({}+{}) Created {}#{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", channelsname))
                 self.channels.append(1)
                 break
             elif "retry_after" in response.text:
-                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, response.json()['retry_after'], Fore.RESET))
+                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", response.json()['retry_after'], "\x1b[0m"))
                 time.sleep(float(response.json()['retry_after']))
             elif "Missing Permissions" in response.text:
-                print("{}({}!{}) Missing Permissions {}#{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, channelsname))
+                print("{}({}!{}) Missing Permissions {}#{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", channelsname))
                 break
             elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-                print("{}({}!{}) You're being temporarly excluded from discord API".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) You're being temporarly excluded from discord API".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             else:
-                print("{}({}-{}) Failed to create {}#{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, channelsname))
+                print("{}({}-{}) Failed to create {}#{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", channelsname))
                 break
             
             
@@ -168,20 +168,20 @@ class x444:
         while True:
             response = self.session.post(f"https://discord.com/api/{next(self.version)}/guilds/{guildid}/roles", headers={"Authorization": f"Bot {token}"}, json=payload)
             if response.status_code == 200:
-                print("{}({}+{}) Created {}@{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", rolesname))
+                print("{}({}+{}) Created {}@{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", rolesname))
                 self.roles.append(1)
                 break
             elif "retry_after" in response.text:
-                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, response.json()['retry_after'], Fore.RESET))
+                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", response.json()['retry_after'], "\x1b[0m"))
                 time.sleep(float(response.json()['retry_after']))
             elif "Missing Permissions" in response.text:
-                print("{}({}!{}) Missing Permissions {}@{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, rolesname))
+                print("{}({}!{}) Missing Permissions {}@{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", rolesname))
                 break
             elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-                print("{}({}!{}) You're being temporarly excluded from discord API".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) You're being temporarly excluded from discord API".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             else:
-                print("{}({}-{}) Failed to create {}@{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, rolesname))
+                print("{}({}-{}) Failed to create {}@{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", rolesname))
                 break
             
     
@@ -189,20 +189,20 @@ class x444:
         while True:
             response = self.session.delete(f"https://discord.com/api/{next(self.version)}/channels/{channel}", headers={"Authorization": f"Bot {token}"})
             if response.status_code == 200:
-                print("{}({}+{}) Deleted {}{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", channel))
+                print("{}({}+{}) Deleted {}{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", channel))
                 self.channels.append(channel)
                 break
             elif "retry_after" in response.text:
-                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, response.json()['retry_after'], Fore.RESET))
+                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", response.json()['retry_after'], "\x1b[0m"))
                 time.sleep(float(response.json()['retry_after']))
             elif "Missing Permissions" in response.text:
-                print("{}({}!{}) Missing Permissions {}{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, channel))
+                print("{}({}!{}) Missing Permissions {}{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", channel))
                 break
             elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-                print("{}({}!{}) You're being temporarly excluded from discord API".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) You're being temporarly excluded from discord API".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             else:
-                print("{}({}-{}) Failed to delete {}{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, channel))
+                print("{}({}-{}) Failed to delete {}{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", channel))
                 break
             
             
@@ -210,40 +210,40 @@ class x444:
         while True:
             response = self.session.delete(f"https://discord.com/api/{next(self.version)}/guilds/{guildid}/roles/{role}", headers={"Authorization": f"Bot {token}"})
             if response.status_code == 204:
-                print("{}({}+{}) Deleted {}{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", role))
+                print("{}({}+{}) Deleted {}{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", role))
                 self.roles.append(role)
                 break
             elif "retry_after" in response.text:
-                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, response.json()['retry_after'], Fore.RESET))
+                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", response.json()['retry_after'], "\x1b[0m"))
                 time.sleep(float(response.json()['retry_after']))
             elif "Missing Permissions" in response.text:
-                print("{}({}!{}) Missing Permissions {}{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, role))
+                print("{}({}!{}) Missing Permissions {}{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", role))
                 break
             elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-                print("{}({}!{}) You're being temporarly excluded from discord API".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) You're being temporarly excluded from discord API".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             else:
-                print("{}({}-{}) Failed to delete {}{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, role))
+                print("{}({}-{}) Failed to delete {}{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", role))
                 break
             
     def execute_delemojis(self, guildid: str, emoji: str, token: str):
         while True:
             response = self.session.delete(f"https://discord.com/api/{next(self.version)}/guilds/{guildid}/emojis/{emoji}", headers={"Authorization": f"Bot {token}"})
             if response.status_code == 204:
-                print("{}({}+{}) Deleted {}{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", emoji))
+                print("{}({}+{}) Deleted {}{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", emoji))
                 self.emojis.append(emoji)
                 break
             elif "retry_after" in response.text:
-                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, response.json()['retry_after'], Fore.RESET))
+                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", response.json()['retry_after'], "\x1b[0m"))
                 time.sleep(float(response.json()['retry_after']))
             elif "Missing Permissions" in response.text:
-                print("{}({}!{}) Missing Permissions {}{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, emoji))
+                print("{}({}!{}) Missing Permissions {}{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", emoji))
                 break
             elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-                print("{}({}!{}) You're being temporarly excluded from discord API".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) You're being temporarly excluded from discord API".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             else:
-                print("{}({}-{}) Failed to delete {}{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, emoji))
+                print("{}({}-{}) Failed to delete {}{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", emoji))
                 break
             
     
@@ -251,30 +251,30 @@ class x444:
         while True:
             response = self.session.post(f"https://discord.com/api/{next(self.version)}/channels/{channel}/messages", headers={"Authorization": f"Bot {token}"}, json={"content": content})
             if response.status_code == 200:
-                print("{}({}+{}) Spammed {}{}{} in {}{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", content, Fore.RESET, "\x1b[38;5;21m", channel))
+                print("{}({}+{}) Spammed {}{}{} in {}{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", content, "\x1b[0m", "\x1b[38;5;21m", channel))
                 self.messages.append(channel)
                 break
             elif "retry_after" in response.text:
-                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, response.json()['retry_after'], Fore.RESET))
+                print("{}({}!{}) Ratelimited. Delayed {}{}{}s".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", response.json()['retry_after'], "\x1b[0m"))
                 time.sleep(float(response.json()['retry_after']))
             elif "Missing Permissions" in response.text:
-                print("{}({}!{}) Missing Permissions {}{}".format(Fore.RESET, Fore.YELLOW, Fore.RESET, Fore.YELLOW, channel))
+                print("{}({}!{}) Missing Permissions {}{}".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m", "\x1b[38;5;208m", channel))
                 break
             elif "You are being blocked from accessing our API temporarily due to exceeding our rate limits frequently." in response.text:
-                print("{}({}!{}) You're being temporarly excluded from discord API".format(Fore.RESET, Fore.YELLOW, Fore.RESET))
+                print("{}({}!{}) You're being temporarly excluded from discord API".format("\x1b[0m", "\x1b[38;5;208m", "\x1b[0m"))
                 break
             else:
-                print("{}({}-{}) Failed to spam {}{}".format(Fore.RESET, Fore.RED, Fore.RESET, Fore.RED, channel))
+                print("{}({}-{}) Failed to spam {}{}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", "\x1b[31m", channel))
                 break
 
     
     def menu(self):
         os.system(f"cls & title x444 Nuker ^| Authenticated as: {__client__.user.name}#{__client__.user.discriminator}")
         print(x444_art + options + "\n")
-        ans = input("{}({}x444{}) Option{}:{} ".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET)) 
+        ans = input("{}({}x444{}) Option{}:{} ".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m")) 
         
         if ans in ["1", "01"]:
-            scrape = input("{}({}x444{}) Fetch IDs [Y/N]{}:{} ".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET))
+            scrape = input("{}({}x444{}) Fetch IDs [Y/N]{}:{} ".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m"))
             if scrape.lower() == "y":
                 try:
                     guild = __client__.get_guild(int(guildid))
@@ -293,7 +293,7 @@ class x444:
                     t.join()
                     
             time.sleep(3)
-            print("{}({}x444{}) Banned {}/{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, len(self.banned), len(members)))
+            print("{}({}x444{}) Banned {}/{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", len(self.banned), len(members)))
             time.sleep(1.5)
             self.menu()
             
@@ -307,20 +307,20 @@ class x444:
                     t.join()
             
             time.sleep(3)
-            print("{}({}x444{}) Kicked {}/{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, len(self.kicked), len(members)))
+            print("{}({}x444{}) Kicked {}/{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", len(self.kicked), len(members)))
             time.sleep(1.5)
             self.menu()
             
         elif ans in ["3", "03"]:
-            days = int(input("{}({}x444{}) Days{}:{} ".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET)))
+            days = int(input("{}({}x444{}) Days{}:{} ".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m")))
             self.execute_prune(guildid, days, token)
             time.sleep(1.5)
             self.menu()
             
         elif ans in ["4", "04"]:
-            type = input("{}({}x444{}) Channels Type ['t', 'v']{}:{} ".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET))
+            type = input("{}({}x444{}) Channels Type ['t', 'v']{}:{} ".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m"))
             type = 2 if type == "v" else 0
-            amount = int(input("{}({}x444{}) Amount{}:{} ".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET)))
+            amount = int(input("{}({}x444{}) Amount{}:{} ".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m")))
             self.channels.clear()
             for i in range(amount):
                 t = threading.Thread(target=self.execute_crechannels, args=(guildid, random.choice(__config__["nuke"]["channels_name"]), type, token))
@@ -329,12 +329,12 @@ class x444:
                     t.join()
                 
             time.sleep(3)
-            print("{}({}x444{}) Created {}/{} channels".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, len(self.channels), amount))
+            print("{}({}x444{}) Created {}/{} channels".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", len(self.channels), amount))
             time.sleep(1.5)
             self.menu()
             
         elif ans in ["5", "05"]:
-            amount = int(input("{}({}x444{}) Amount{}:{} ".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET)))
+            amount = int(input("{}({}x444{}) Amount{}:{} ".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m")))
             self.roles.clear()
             for i in range(amount):
                 t = threading.Thread(target=self.execute_creroles, args=(guildid, random.choice(__config__["nuke"]["roles_name"]), token))
@@ -343,7 +343,7 @@ class x444:
                     t.join()
                 
             time.sleep(3)
-            print("{}({}x444{}) Created {}/{} roles".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, len(self.roles), amount))
+            print("{}({}x444{}) Created {}/{} roles".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", len(self.roles), amount))
             time.sleep(1.5)
             self.menu()
             
@@ -357,7 +357,7 @@ class x444:
                     t.join()
                 
             time.sleep(3)
-            print("{}({}x444{}) Deleted {}/{} channels".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, len(self.channels), len(channels)))
+            print("{}({}x444{}) Deleted {}/{} channels".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", len(self.channels), len(channels)))
             time.sleep(1.5)
             self.menu()
             
@@ -371,7 +371,7 @@ class x444:
                     t.join()
                 
             time.sleep(3)
-            print("{}({}x444{}) Deleted {}/{} roles".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, len(self.roles), len(roles)))
+            print("{}({}x444{}) Deleted {}/{} roles".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", len(self.roles), len(roles)))
             time.sleep(1.5)
             self.menu()
             
@@ -385,13 +385,13 @@ class x444:
                     t.join()
                     
             time.sleep(3)
-            print("{}({}x444{}) Deleted {}/{} emojis".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, len(self.emojis), len(emojis)))
+            print("{}({}x444{}) Deleted {}/{} emojis".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", len(self.emojis), len(emojis)))
             time.sleep(1.5)
             self.menu()
             
         elif ans in ["9", "09"]:
             self.messages.clear(); self.channels.clear()
-            amount = int(input("{}({}x444{}) Amount{}:{} ".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET)))
+            amount = int(input("{}({}x444{}) Amount{}:{} ".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m")))
             channels = self.session.get(f"https://discord.com/api/v9/guilds/{guildid}/channels", headers={"Authorization": f"Bot {token}"}).json()
             for channel in channels: self.channels.append(channel['id'])
             channelz = cycle(self.channels)
@@ -402,21 +402,21 @@ class x444:
                     t.join()
                     
             time.sleep(3)
-            print("{}({}x444{}) Spammed {}/{} messages".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, len(self.messages), amount))
+            print("{}({}x444{}) Spammed {}/{} messages".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", len(self.messages), amount))
             time.sleep(1.5)
             self.menu()
             
         elif ans == "10":
             try:
                 response = self.session.get("https://github.com/notspeezy/x444-Nuker/releases/latest")
-                check_version = response.headers.get('location').split('/')[7]
+                check_version = response.headers.get('location').split('/')[7].split('v')[1]
                 if VERSION != check_version:
-                    print("{}({}x444{}) You're using an outdated version!".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET))
+                    print("{}({}x444{}) You're using an outdated version!".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m"))
                     webbrowser.open(f"https://github.com/notspeezy/x444-Nuker/releases/tag/{check_version}")
                 else:
-                    print("{}({}x444{}) You're using the current version!".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET))
+                    print("{}({}x444{}) You're using the current version!".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m"))
             except:
-                print("{}({}x444{}) Couldn't reach the releases!".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET))
+                print("{}({}x444{}) Couldn't reach the releases!".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m"))
             
             time.sleep(1.5)
             self.menu()
@@ -428,14 +428,14 @@ class x444:
             self.menu()
         
         elif ans == "12":
-            print("{}({}x444{}) Thanks for using x444!".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET))
+            print("{}({}x444{}) Thanks for using x444!".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m"))
             time.sleep(1.5)
             os._exit(0)
             
     
 @__client__.event
 async def on_ready():
-    print("{}({}x444{}) Authenticated as{}: {}{}".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET, f"{__client__.user.name}#{__client__.user.discriminator}"))
+    print("{}({}x444{}) Authenticated as{}: {}{}".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", f"{__client__.user.name}#{__client__.user.discriminator}"))
     time.sleep(1.5)
     x444().menu()
     
@@ -443,9 +443,9 @@ async def on_ready():
 if __name__ == "__main__":
     try:
         os.system("title x444 Nuker ^| Authentication & mode con: cols=95 lines=25")
-        guildid = input("{}({}x444{}) Guild ID{}:{} ".format(Fore.RESET, "\x1b[38;5;21m", Fore.RESET, "\x1b[38;5;21m", Fore.RESET))
+        guildid = input("{}({}x444{}) Guild ID{}:{} ".format("\x1b[0m", "\x1b[38;5;21m", "\x1b[0m", "\x1b[38;5;21m", "\x1b[0m"))
         __client__.run(token, bot=True)
     except Exception as e:
-        print("{}({}-{}) {}".format(Fore.RESET, Fore.RED, Fore.RESET, e))
+        print("{}({}-{}) {}".format("\x1b[0m", "\x1b[31m", "\x1b[0m", e))
         time.sleep(1.5)
         os._exit(0)
