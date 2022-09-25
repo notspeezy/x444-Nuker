@@ -40,3 +40,6 @@ For python version:
 ## Preview
 ![banall](https://user-images.githubusercontent.com/93849730/180956781-eb23c827-c3ec-4e80-a880-da98ece0bd1e.gif)
 ![avgbans](https://i.postimg.cc/T2NhVPbb/banspersec.png)
+## Skids
+- NiceDayz (https://youtu.be/9eYxI2F3gQQ)
+- [140hermione](https://github.com/140hermione)
