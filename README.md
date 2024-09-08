@@ -43,3 +43,4 @@ For python version:
 ## Skids
 - [Nice2Basic](https://github.com/Nice2Basic) (https://youtu.be/UzaSIoUQ-Xs)
 - [140hermione](https://github.com/140hermione) (https://youtu.be/9eYxI2F3gQQ)
+- [AxZeRxD](https://github.com/AxZeRxD) (https://github.com/AxZeRxD/Thallium-Nuker)
